@@ -1,0 +1,203 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #0f1730;
+  border: 1px solid #223052;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #121c38;
+  border-bottom: 1px solid #1b2540;
+}
+
+.title {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8ea0c8;
+}
+
+.count {
+  margin-left: auto;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: #f7d51d;
+}
+
+.scroller {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #2b3a5e transparent;
+}
+
+.empty {
+  margin: 0;
+  padding: 20px 6px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #5f6f95;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 9px 11px;
+  font-size: 12px;
+  background: #121a30;
+  border: 1px solid #1e2a48;
+  border-left: 3px solid #49608f;
+  border-radius: 8px;
+
+  &.is-flap {
+    border-left-color: #5ad07a;
+  }
+
+  &.is-glide {
+    border-left-color: #7f8fb3;
+  }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.seq {
+  font-weight: 700;
+  color: #f7d51d;
+}
+
+.meta {
+  color: #6f7fa6;
+}
+
+.latency {
+  margin-left: auto;
+  color: #8ea0c8;
+}
+
+.verdict {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #cfe0ff;
+}
+
+.is-flap .verdict {
+  color: #5ad07a;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 44px 1fr 40px;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  color: #6f7fa6;
+}
+
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: #b9c8e6;
+}
+
+.bar {
+  height: 6px;
+  overflow: hidden;
+  background: #1c2745;
+  border-radius: 3px;
+
+  > i {
+    display: block;
+    height: 100%;
+    background: #8fa4cc;
+  }
+}
+
+.bar-flap > i {
+  background: #5ad07a;
+}
+
+.bar-glide > i {
+  background: #8fa4cc;
+}
+
+.bar-danger > i {
+  background: #e5695f;
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding-top: 6px;
+  font-size: 11px;
+  color: #6f7fa6;
+  border-top: 1px solid #1b2540;
+}
+
+.grade {
+  font-weight: 700;
+
+  &.is-ok {
+    color: #5ad07a;
+  }
+
+  &.is-off {
+    color: #e5695f;
+  }
+}
+
+.raw {
+  margin-left: auto;
+  padding: 2px 7px;
+  font-size: 10px;
+  color: #8ea0c8;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #2b3a5e;
+  border-radius: 5px;
+
+  &:hover {
+    color: #cfe0ff;
+    border-color: #4a5f8f;
+  }
+}
+
+.payload {
+  max-height: 220px;
+  margin: 0;
+  padding: 8px;
+  overflow: auto;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: #9fb3d8;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #0a1122;
+  border: 1px solid #1b2540;
+  border-radius: 6px;
+
+  &.dim {
+    color: #5d6c90;
+  }
+}

@@ -1,0 +1,58 @@
+<div class="head">
+  <span class="title">Jev decisions</span>
+  <span class="count">{{ entries().length }}</span>
+</div>
+
+<div class="scroller" #scroller>
+  @if (entries().length === 0) {
+    <p class="empty">
+      Press <strong>Start</strong>. Every decision Jev makes will print here as it arrives.
+    </p>
+  }
+
+  @for (e of entries(); track e.seq) {
+    <article class="card" [class.is-flap]="e.action === 'flap'" [class.is-glide]="e.action === 'glide'">
+      <header>
+        <span class="seq">#{{ e.seq }}</span>
+        <span class="meta">tick {{ e.tick }}</span>
+        <span class="latency">{{ e.latencyMs }}ms</span>
+        <span class="verdict">{{ e.action === 'flap' ? 'FLAP' : 'GLIDE' }}</span>
+      </header>
+
+      <div class="row">
+        <span class="label">flap</span>
+        <span class="bar bar-flap"><i [style.width.%]="e.flapProbability * 100"></i></span>
+        <span class="num">{{ fixed(e.flapProbability) }}</span>
+      </div>
+      <div class="row">
+        <span class="label">glide</span>
+        <span class="bar bar-glide"><i [style.width.%]="e.glideProbability * 100"></i></span>
+        <span class="num">{{ fixed(e.glideProbability) }}</span>
+      </div>
+      <div class="row">
+        <span class="label">danger</span>
+        <span class="bar bar-danger"><i [style.width.%]="e.danger * 100"></i></span>
+        <span class="num">{{ fixed(e.danger) }}</span>
+      </div>
+
+      <footer>
+        @if (e.matched) {
+          <span class="grade is-ok">✓ best move</span>
+        } @else {
+          <span class="grade is-off">✗ best was {{ e.ideal }}</span>
+        }
+        <span>conf {{ fixed(e.confidence) }}</span>
+        <span>{{ e.inputTokens }} in / {{ e.outputTokens }} out</span>
+        <span>${{ fixed(e.cost, 5) }}</span>
+        <button type="button" class="raw" (click)="toggle(e.seq)">
+          {{ opened() === e.seq ? 'hide json' : 'json' }}
+        </button>
+      </footer>
+
+      @if (opened() === e.seq) {
+        <pre class="payload">{{ json(e.response) }}</pre>
+        <pre class="payload dim">{{ json(e.request) }}</pre>
+      }
+    </article>
+  }
+</div>

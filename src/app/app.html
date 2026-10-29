@@ -1,0 +1,52 @@
+<div class="shell">
+  <header class="bar">
+    <h1>Flappy Bird <em>×</em> Jev</h1>
+
+    <label class="field">
+      <span>Model</span>
+      <select [disabled]="status() === 'running'" (change)="model.set($any($event.target).value)">
+        @for (m of models; track m) {
+          <option [value]="m" [selected]="m === model()">{{ m }}</option>
+        }
+      </select>
+    </label>
+
+    <button class="primary" type="button" [disabled]="!canStart()" (click)="start()">Start</button>
+    <button class="ghost" type="button" [disabled]="!canStop()" (click)="stop()">Stop</button>
+
+    <div class="tally">
+      <span><b>{{ score() }}</b><small>/{{ pipeCount }} pipes</small></span>
+      <span><b>{{ accuracy() === null ? '—' : accuracy() + '%' }}</b><small>accuracy</small></span>
+      <span><b>{{ entries().length }}</b><small>taps</small></span>
+      <span><b>{{ lastLatency() }}</b><small>ms last</small></span>
+      <span><b>{{ money(totalSpend()) }}</b><small>spent</small></span>
+    </div>
+  </header>
+
+  @if (!hasKey) {
+    <p class="notice">
+      No API key found. Put <code>NG_APP_OPENROUTER_KEY=sk-or-...</code> in <code>.env</code>, then
+      restart <code>ng serve</code>.
+    </p>
+  }
+
+  @if (errorMessage()) {
+    <p class="notice is-error">{{ errorMessage() }}</p>
+  }
+
+  <main class="split">
+    <section class="stage">
+      <app-game-canvas />
+
+      @if (status() === 'running') {
+        <div class="thinking"><i></i>Jev is thinking…</div>
+      }
+
+      @if (status() === 'over' && verdict()) {
+        <div class="verdict">{{ verdict() }}</div>
+      }
+    </section>
+
+    <app-decision-log class="panel" [entries]="entries()" />
+  </main>
+</div>
